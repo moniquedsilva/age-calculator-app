@@ -48,14 +48,14 @@ const calculateAge = () => {
 
 <template>
   <main
-    class="flex min-h-screen w-full items-center justify-center bg-off-white p-4 font-poppins md:p-0"
+    class="flex min-h-screen w-full items-center justify-center bg-off-white p-4 font-poppins lg:p-0"
   >
     <section
       class="relative flex h-[500px] w-full max-w-[840px] flex-col justify-center rounded-[22px_22px_100px_22px] bg-white p-6 shadow-2xl shadow-light-grey md:h-[664px] md:p-14"
     >
       <AppForm @handle-click="handleButtonClick" />
       <div
-        class="space-y-2 text-[56px] font-extrabold italic leading-none text-primary md:text-8xl"
+        class="space-y-2 text-[52px] font-extrabold italic leading-none text-primary md:text-8xl"
       >
         <p>
           <span v-if="error" class="tracking-widest text-secondary">--</span>
