@@ -237,8 +237,14 @@ const validateDate = () => {
         type="submit"
         class="durantion-200 absolute flex h-16 w-[66px] items-center justify-center rounded-full border-transparent bg-secondary transition-colors hover:bg-primary focus:outline-none focus:ring-transparent md:right-14"
         @click.prevent="handleClick"
+        @keyup="handleClick"
       >
-        <img src="../assets/icon-arrow.svg" alt="arrow" class="w-7" />
+        <img
+          src="../assets/icon-arrow.svg"
+          alt="arrow"
+          width="28"
+          height="28"
+        />
       </button>
     </div>
   </form>
