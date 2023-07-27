@@ -23,14 +23,23 @@ const error = ref({
 const emit = defineEmits(['handleClick'])
 
 const labelClasses = computed(() => {
-  return ['flex', 'flex-col', 'text-sm', 'font-bold', 'uppercase', 'h-32']
+  return [
+    'flex',
+    'flex-col',
+    'text-sm',
+    'font-bold',
+    'uppercase',
+    'h-32',
+    'w-[90px]',
+    'md:w-[158px]'
+  ]
 })
 
 const inputClasses = computed(() => {
   return [
     'mt-2',
     'h-[54px]',
-    'w-[90px]',
+    'w-full',
     'rounded-md',
     'border',
     'border-light-grey',
@@ -43,7 +52,6 @@ const inputClasses = computed(() => {
     'focus:ring-2',
     'focus:ring-secondary',
     'md:h-[70px]',
-    'md:w-[158px]',
     'md:px-6',
     'md:py-2',
     'md:text-[32px]',
@@ -84,38 +92,38 @@ const validateEmpty = () => {
 }
 
 const validateDate = () => {
-  const date = new Date(`${month.value}/${day.value}/${year.value}`)
+  const monthValue = parseInt(month.value, 10)
+  const dayValue = parseInt(day.value, 10)
+  const yearValue = parseInt(year.value, 10)
   const currentYear = new Date().getFullYear()
 
-  console.log(date.getDate())
-  console.log(date)
-
-  if (isNaN(date.getDate())) {
-    error.value.day.invalid = true
-    error.value.inputError = true
-  } else {
-    error.value.day.invalid = false
-  }
-
-  if (isNaN(date.getMonth() + 1)) {
+  // Check if the month is valid (0-indexed, so we need to subtract 1)
+  if (isNaN(monthValue) || monthValue < 1 || monthValue > 12) {
     error.value.month.invalid = true
     error.value.inputError = true
   } else {
     error.value.month.invalid = false
+    error.value.inputError = false
   }
 
-  if (isNaN(date.getFullYear())) {
+  // Check if the day is valid for the given month and year
+  const isValidDay =
+    dayValue > 0 && dayValue <= new Date(yearValue, monthValue, 0).getDate()
+  if (isNaN(dayValue) || !isValidDay) {
+    error.value.day.invalid = true
+    error.value.inputError = true
+  } else {
+    error.value.day.invalid = false
+    error.value.inputError = false
+  }
+
+  // Check if the year is valid (assuming it should not be in the future)
+  if (isNaN(yearValue) || yearValue > currentYear) {
     error.value.year.invalid = true
     error.value.inputError = true
   } else {
     error.value.year.invalid = false
-  }
-
-  if (year.value > currentYear) {
-    error.value.year.invalid = true
-    error.value.inputError = true
-  } else {
-    error.value.year.invalid = false
+    error.value.inputError = false
   }
 }
 </script>
